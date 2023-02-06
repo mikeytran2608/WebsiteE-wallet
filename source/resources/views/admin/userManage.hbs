@@ -1,0 +1,304 @@
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">{{title}} Tables</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                <li class="breadcrumb-item active">Tables</li>
+            </ol>
+            <div class="card mb-2">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    User Database
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>FrontId</th>
+                                    <th>BackId</th>
+                                    <th>Created At</th>
+
+                                    <th>Permission</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each userList}}
+                                <tr>
+                                    <td>{{this.email}} </td>
+                                    <td>{{this.phone}}</td>
+                                    <td> <img class="card-img" src="../../{{this.cmndfront}}"></td>
+                                    <td> <img  class="card-img" src="../../{{this.cmndback}}"></td>
+                                    <td>{{moment this.createdAt format = "HH:mm on DD/MM/yyyy"}}</td>
+
+                                    <td class="font-weight-bold">
+
+                                        {{#ifeq this.permission "Verified"}}
+                                            <div class="text-success d-flex justify-content-between">
+                                            {{this.permission}}
+                                        {{else}}
+                                            <div class=" text-danger d-flexx justify-content-between">
+                                            {{this.permission}}
+                                                
+                                        {{/ifeq}}
+                                            </div>
+                                    </td>
+                                    {{#ifeq this.banCheck true }}
+                                    <td>
+                                        <a href="/admin/unBan/{{this._id}}"><button
+                                                class="btn btn-success">UnBan</button></a>
+                                                {{#ifeq this.permission "Not Verified"}}
+                                        <a href="/admin/verify/{{this._id}}"><button class="btn btn-success">
+                                                Verify</i></button></a>
+                                                {{/ifeq}}
+                                        <a href="/customer/{{this.slug}}"><button class="btn btn-dark">
+                                                Details</i></button></a>
+
+                                    </td>
+                                    {{else}}
+                                    <td>
+                                        <a href="/admin/ban/{{this._id}}"><button
+                                                class="btn btn-danger">Ban</button></a>
+                                                 {{#ifeq this.permission "Not Verified"}}
+                                        <a href="/admin/verify/{{this._id}}"><button class="btn btn-success">
+                                                Verify</i></button></a>
+                                                {{/ifeq}}
+                                        <a href="/customer/{{this.slug}}"><button class="btn btn-dark">
+                                                Details</i></button></a>
+                                    </td>
+                                    {{/ifeq}}
+                                </tr>
+
+                                {{/each}}
+
+                            </tbody>
+                        </table>
+
+                        <div class="container my-4">
+                            <div class="nav-align-top mb-4">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                                            data-bs-target="#navs-top-all" aria-controls="navs-top-all"
+                                            aria-selected="true">
+                                            Waiting Verify
+                                        </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                            data-bs-target="#navs-top-selling" aria-controls="navs-top-selling"
+                                            aria-selected="false">
+                                            Verified
+                                        </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                            data-bs-target="#navs-top-soldout" aria-controls="navs-top-soldout"
+                                            aria-selected="false">
+                                            Banned
+                                        </button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                                            data-bs-target="#navs-top-waiting" aria-controls="navs-top-waiting"
+                                            aria-selected="false">
+                                            Vô hiệu hóa
+                                        </button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+
+                                    <div class="tab-pane fade show active" id="navs-top-all" role="tabpanel">
+                                        <div class="card">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Email</th>
+                                                            <th>Phone</th>
+                                                            <th>FrontId</th>
+                                                            <th>BackId</th>
+                                                            <th>Created At</th>
+                                                            <th>Permission</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="table-border-bottom-0">
+                                                        {{#each userList}}
+                                                        {{#ifeq this.permission "Not Verified"}}
+                                                        <tr>
+                                                            <td>
+                                                                {{this.email}}</i>
+                                                            </td>
+                                                            <td>{{this.phone}}</td>
+
+                                                            <td> <img class="card-img" src="../../{{this.cmndfront}}"></td>
+                                                            <td>
+                                                                <img  class="card-img" src="../../{{this.cmndback}}">
+                                                            </td>
+                                                            <td>{{moment this.createdAt format = "HH:mm on DD/MM/yyyy"}}
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-between">
+                                                                    {{this.permission}}
+                                                                    <a href="/admin/verify/{{this._id}}"><button
+                                                                            class="btn btn-success">
+                                                                            <i class="fa fa-check"></i></button></a>
+                                                                </div>
+                                                                
+                                                         <a href="/admin/cancle/{{this._id}}"><button class="btn btn-danger">
+                                                Cancle</i></button></a>
+                                                             <div><button class="btn btn-outline-dark">Bổ sung CMND</button></div>
+
+                                                            </td>
+                                                        </tr>
+                                                        {{/ifeq}}
+                                                        {{/each}}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tab-pane fade " id="navs-top-selling" role="tabpanel">
+
+
+                                        <div class="table-responsive text-nowrap">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>FrontId</th>
+                                                        <th>BackId</th>
+                                                        <th>Created At</th>
+                                                        <th>Permission</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    {{#each userList}}
+                                                    {{#ifeq this.permission "Verified"}}
+                                                    <tr>
+                                                        <td>
+                                                            {{this.email}}</i>
+                                                        </td>
+                                                        <td>{{this.phone}}</td>
+
+                                                        <td> <img  class="card-img" src="../../{{this.cmndfront}}"></td>
+                                                        <td>
+                                                            <img  class="card-img" src="../{{this.cmndback}}">
+                                                        </td>
+                                                        <td>{{moment this.createdAt format = "HH:mm on DD/MM/yyyy"}}
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex justify-content-between">
+                                                                {{this.permission}}
+                                                                <a href="/admin/verify/{{this._id}}"><button
+                                                                        class="btn btn-success">
+                                                                        <i class="fa fa-check"></i></button></a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    {{/ifeq}}
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade  " id="navs-top-soldout" role="tabpanel">
+
+
+                                        <div class="table-responsive text-nowrap">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>FrontId</th>
+                                                        <th>BackId</th>
+                                                        <th>Ban At</th>
+                                                        <th>Permission</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    {{#each userListBanned}}
+                                                    {{#ifeq this.banCheck true}}
+                                                    <tr>
+                                                        <td>
+                                                            {{this.email}}</i>
+                                                        </td>
+                                                        <td>{{this.phone}}</td>
+
+                                                        <td> <img   class="card-img" src="../../{{this.cmndfront}}"></td>
+                                                        <td>
+                                                            <img  class="card-img" src="../{{this.cmndback}}">
+                                                        </td>
+                                                        <td>{{moment this.updatedAt format = "HH:mm on DD/MM/yyyy"}}
+                                                        </td>
+                                                        {{#ifeq this.banCheck true }}
+                                                        <td>
+                                                            <a href="/admin/unBan/{{this._id}}"><button
+                                                                    class="btn btn-success">UnBan</button></a>
+                                                        </td>
+                                                        {{/ifeq}}
+                                                    </tr>
+                                                    {{/ifeq}}
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                
+                                <div class="tab-pane fade  " id="navs-top-waiting" role="tabpanel">
+
+
+                                        <div class="table-responsive text-nowrap">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>FrontId</th>
+                                                        <th>BackId</th>
+                                                        <th>Ban At</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="table-border-bottom-0">
+                                                    {{#each userListBanned}}
+                                                    {{#ifeq this.countFailed 6}}
+                                                    <tr>
+                                                        <td>
+                                                            {{this.email}}</i>
+                                                        </td>
+                                                        <td>{{this.phone}}</td>
+
+                                                        <td> <img   class="card-img" src="../../{{this.cmndfront}}"></td>
+                                                        <td>
+                                                            <img  class="card-img" src="../{{this.cmndback}}">
+                                                        </td>
+                                                        <td>{{moment this.updatedAt format = "HH:mm on DD/MM/yyyy"}}
+                                                        </td>
+                                                        <td>
+                                                            <a href="/admin/unBan/{{this._id}}"><button
+                                                                    class="btn btn-success">Disable</button></a>
+                                                        </td>
+                                                    </tr>
+                                                    {{/ifeq}}
+                                                    {{/each}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>

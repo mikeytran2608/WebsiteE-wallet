@@ -1,0 +1,48 @@
+
+<div class="container">
+    <form method="post" action="/customer/withdraw" id="withdraw-form">
+        <div class="login-form m-5 p-3 bg-light border border-4 rounded">
+            <div class="text-center">
+                    <h1>Rút tiền</h1>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Mã thẻ</label>
+                <input type="number" class="form-control" id="withdrawCreditId"  name="withdrawCreditId">
+            </div>
+    
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Ngày hết hạn</label>
+                <input type="text" class="form-control" id="withdrawExpiredDate"  name="withdrawExpiredDate">
+            </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Mã CVV</label>
+                <input type="number" class="form-control" id="withdrawCvvId"  name="withdrawCvvId" >
+            </div>
+
+             <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Số tiền cần rút</label>
+                <input type="number" class="form-control" id="money"  name="money" min="1" onkeyup="getMoney()">
+            </div>
+            
+             <div class="mb-3">
+                <label class="form-label">Ghi chu</label>
+                <textarea type="" class="form-control" id="note"  name="note" ></textarea>
+            </div>
+            <input name="username" value="{{user.username}}" hidden >
+            <input name="type" value="rutTien" hidden > 
+
+
+            <div  style="background-color:rgba(175, 172, 172, 0.1);font-size:14px">
+            <span class="badge badge-pill badge-danger text-dark p-0">Số tiền hiện có: <b id="user-money">{{user.money}}</b> </span>
+                <br>
+                <strong>Phí rút tiền là 5% mỗi lần rút: <strong id="fee-display" style="color: red" ></strong></strong>
+                <br>
+            </div>
+            <div class="text-center mt-2">
+                <button type="submit" class="btn btn-outline-dark"  onclick="withdrawIdCheck()">Rút tiền</button>
+            </div>
+            
+            </div>
+        </div>
+    </form>
+</div>

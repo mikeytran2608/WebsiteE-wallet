@@ -1,0 +1,20 @@
+<header class="masthead">
+    <div class="container px-4 px-lg-5 h-100">
+        <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+            <div class="col-lg-8 align-self-end">
+                <h1 class=" font-weight-bold">Welcome to E-wallet</h1>
+                <hr class="divider" />
+            </div>
+            <div class="col-lg-8 align-self-baseline">
+
+                {{#ifeq user.permission "Not Verified"}}
+                <p class="mb-5">Vui lòng chờ admin xác nhận tài khoản để sử dụng các chất năng</p>
+                {{else}}
+                <p class=" mb-5">Hi {{user.fullname}}</p>
+                <a class="btn btn-light btn-xl" href="/customer/{{user.slug}}">Thông tin cá nhân</a>
+
+                {{/ifeq}}
+            </div>
+        </div>
+    </div>
+</header>
